@@ -59,12 +59,12 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
-    public function getProfilePage()
+    public function getAccount()
     {
-        return view('profilepage', ['user' => Auth::user()]);
+        return view('account', ['user' => Auth::user()]);
     }
 
-    public function postUpdateProfile(Request $request)
+    public function postSaveAccount(Request $request)
     {
         $this->validate($request, [
             'first_name' => 'required|max:120'
@@ -74,15 +74,15 @@ class UserController extends Controller
         $user->first_name = $request['first_name'];
         $user->last_name = $request['last_name'];
         $user->email = $request['email'];
-        $password = bcrypt($request['password']);
         $user->phone = $request['phone'];
+        $password = bcrypt($request['password']);
         $user->update();
         $file = $request->file('image');
         $filename = $request['first_name'] . '-' . $user->id . '.jpg';
         if ($file) {
             Storage::disk('local')->put($filename, File::get($file));
         }
-        return redirect()->route('profilepage');
+        return redirect()->route('account');
     }
 
     public function getUserImage($filename)

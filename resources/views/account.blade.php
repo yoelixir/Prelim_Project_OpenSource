@@ -15,7 +15,7 @@
                     @if (Storage::disk('local')->has($user->first_name . '-' . $user->id . '.jpg'))
                     <section class="row">
                         <!-- <div class="col-md-6 col-md-offset-3"> -->
-                            <img src="{{ route('profile.image', ['filename' => $user->first_name . '-' . $user->id . '.jpg']) }}" alt="" class="img-responsive">
+                            <img src="{{ route('account.image', ['filename' => $user->first_name . '-' . $user->id . '.jpg']) }}" alt="" class="img-responsive">
                         <!-- </div> -->
                     </section>
                     @endif
@@ -23,7 +23,6 @@
                 <div class="col-md-8">
                     <!-- <div class="col-md-6 col-md-offset-3"> -->
                     <!-- <header><h3>Your Account</h3></header> -->
-                    <form action="{{ route('profile.save') }}" method="post" enctype="multipart/form-data">
                         <div class="col-md-4">
                             <div>
                                 <label for="first_name">First Name</label>
@@ -43,19 +42,14 @@
                                 <label for="email">E-Mail</label>
                                 <p>{{ $user->email }}</p>
                             </div>
-                        <!-- <div>
-                            <label for="password">Password</label>
-                            <input type="text" name="password" class="form-control" value="{{ $user->password }}" id="password">
-                        </div> -->
                         </div>
-                    </form>
                     <!-- </div> -->
                 </div>
             </div>
         </div>    
     </section>
     <section class="row">
-    <form action="{{ route('profile.save') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('account.save') }}" method="post" enctype="multipart/form-data">
     <header><h3>Edit Profile Page</h3></header>
         <div class="col-md-6">
                     <div class="form-group">
@@ -84,7 +78,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Update Password</label>
-                <input type="text" name="password" class="form-control" value="{{ $user->password }}" id="password">
+                <input type="password" name="password" class="form-control" id="password">
             </div>
         </div>
     </form>    
