@@ -46,6 +46,11 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'logout'
        ]);
 
+       Route::get('/profilepage', [
+            'uses' => 'UserController@getProfilePage',
+            'as' => 'profilepage'
+       ]);
+
        Route::get('/account', [
             'uses' => 'UserController@getAccount',
             'as' => 'account'

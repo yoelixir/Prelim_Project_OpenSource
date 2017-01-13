@@ -59,6 +59,11 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
+    public function getProfilePage()
+    {
+        return view('profilepage', ['user' => Auth::user()]);
+    }
+
     public function getAccount()
     {
         return view('account', ['user' => Auth::user()]);
