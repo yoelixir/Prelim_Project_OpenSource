@@ -15,16 +15,22 @@ class UserController extends Controller
         $this->validate($request, [
             'email' => 'required|email|unique:users',
             'first_name' => 'required|max:120',
+            'last_name' => 'required|max:120',
+            'phone' => 'required|max:10',
             'password' => 'required|min:4'
         ]);
 
         $email = $request['email'];
         $first_name = $request['first_name'];
+        $last_name = $request['last_name'];
+        $phone = $request['phone'];
         $password = bcrypt($request['password']);
 
         $user = new User();
         $user->email = $email;
         $user->first_name = $first_name;
+        $user->last_name = $last_name;
+        $user->phone = $phone;
         $user->password = $password;
 
         $user->save();
@@ -53,12 +59,12 @@ class UserController extends Controller
         return redirect()->route('home');
     }
 
-    public function getAccount()
+    public function getProfilePage()
     {
-        return view('account', ['user' => Auth::user()]);
+        return view('profilepage', ['user' => Auth::user()]);
     }
 
-    public function postSaveAccount(Request $request)
+    public function postUpdateProfile(Request $request)
     {
         $this->validate($request, [
             'first_name' => 'required|max:120'
@@ -66,13 +72,17 @@ class UserController extends Controller
 
         $user = Auth::user();
         $user->first_name = $request['first_name'];
+        $user->last_name = $request['last_name'];
+        $user->email = $request['email'];
+        $password = bcrypt($request['password']);
+        $user->phone = $request['phone'];
         $user->update();
         $file = $request->file('image');
         $filename = $request['first_name'] . '-' . $user->id . '.jpg';
         if ($file) {
             Storage::disk('local')->put($filename, File::get($file));
         }
-        return redirect()->route('account');
+        return redirect()->route('profilepage');
     }
 
     public function getUserImage($filename)

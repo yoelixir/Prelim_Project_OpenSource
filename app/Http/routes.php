@@ -46,19 +46,19 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'logout'
        ]);
 
-       Route::get('/account', [
-            'uses' => 'UserController@getAccount',
-            'as' => 'account'
+       Route::get('/profilepage', [
+            'uses' => 'UserController@getProfilePage',
+            'as' => 'profilepage'
        ]);
 
-       Route::post('/updateaccount', [
-            'uses' => 'UserController@postSaveAccount',
-            'as' => 'account.save'
+       Route::post('/updateprofile', [
+            'uses' => 'UserController@postUpdateProfile',
+            'as' => 'profile.save'
        ]);
 
        Route::get('/userimage/{filename}', [
             'uses' => 'UserController@getUserImage',
-            'as' => 'account.image'
+            'as' => 'profile.image'
        ]);
 
        Route::get('/dashboard', [
